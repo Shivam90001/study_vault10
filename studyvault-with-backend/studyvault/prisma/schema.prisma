@@ -1,0 +1,30 @@
+// Prisma schema — defines the real database that replaces browser localStorage.
+// Uses SQLite by default (a single file, works out of the box, no external
+// service needed). For production on a serverless host (like Vercel) swap
+// DATABASE_URL to a hosted Postgres database — see README "Deploying with
+// a real backend" section.
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// One row per file a student (or admin) has uploaded into a subject's
+// Syllabus / PYQs / Notes tab.
+model Upload {
+  id       String   @id @default(cuid())
+  course   String
+  semester String
+  subject  String
+  section  String // "syllabus" | "pyqs" | "notes"
+  label    String
+  fileName String
+  fileUrl  String // public path under /uploads/...
+  addedAt  DateTime @default(now())
+
+  @@index([course, semester, subject])
+}
