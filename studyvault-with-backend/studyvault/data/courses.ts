@@ -4,7 +4,7 @@ export const courses: Course[] = [
   {
     slug: "btech",
     name: "B.Tech",
-    fullName: "Aryan kumar",
+    fullName: "Bachlors of technology",
     description: "Four-year engineering degree across CSE, ME and more.",
     semesterCount: 8,
   },
